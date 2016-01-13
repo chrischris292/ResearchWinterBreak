@@ -7,7 +7,7 @@
 //
 
 #include "Voigt.hpp"
-#include "Faddeeva.hpp"
+#include "Dependencies/Faddeeva.hpp"
 using namespace std;
 
 

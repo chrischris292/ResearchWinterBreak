@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71B192B01C46E83F003BD111 /* Faddeeva.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71B192AE1C46E83F003BD111 /* Faddeeva.cpp */; };
 		AF82676F1C3DCE3C0031A188 /* Sparse_Representation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF82676E1C3DCE3C0031A188 /* Sparse_Representation.cpp */; };
 		AF82677C1C3F65270031A188 /* cnpy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF82677A1C3F65260031A188 /* cnpy.cpp */; };
 		AF8267861C405F730031A188 /* Voigt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF8267841C405F730031A188 /* Voigt.cpp */; };
-		AF8267891C40634B0031A188 /* Faddeeva.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF8267871C40634B0031A188 /* Faddeeva.cpp */; };
 		AF82678C1C4069730031A188 /* Testing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF82678A1C4069730031A188 /* Testing.cpp */; };
 /* End PBXBuildFile section */
 
@@ -29,14 +29,14 @@
 /* Begin PBXFileReference section */
 		718789581C46B40C00A614DE /* CFHTLens_sample.P.npy */ = {isa = PBXFileReference; lastKnownFileType = file; name = CFHTLens_sample.P.npy; path = Data/CFHTLens_sample.P.npy; sourceTree = "<group>"; };
 		71B192AD1C46DC18003BD111 /* Sparse_Representation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sparse_Representation.h; sourceTree = "<group>"; };
+		71B192AE1C46E83F003BD111 /* Faddeeva.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Faddeeva.cpp; path = Dependencies/Faddeeva.cpp; sourceTree = "<group>"; };
+		71B192AF1C46E83F003BD111 /* Faddeeva.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Faddeeva.hpp; path = Dependencies/Faddeeva.hpp; sourceTree = "<group>"; };
 		AF82676B1C3DCE3C0031A188 /* Research */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Research; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF82676E1C3DCE3C0031A188 /* Sparse_Representation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sparse_Representation.cpp; sourceTree = "<group>"; };
 		AF82677A1C3F65260031A188 /* cnpy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cnpy.cpp; path = Dependencies/cnpy.cpp; sourceTree = "<group>"; };
 		AF82677B1C3F65270031A188 /* cnpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cnpy.h; path = Dependencies/cnpy.h; sourceTree = "<group>"; };
 		AF8267841C405F730031A188 /* Voigt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Voigt.cpp; sourceTree = "<group>"; };
 		AF8267851C405F730031A188 /* Voigt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Voigt.hpp; sourceTree = "<group>"; };
-		AF8267871C40634B0031A188 /* Faddeeva.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Faddeeva.cpp; sourceTree = "<group>"; };
-		AF8267881C40634B0031A188 /* Faddeeva.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Faddeeva.hpp; sourceTree = "<group>"; };
 		AF82678A1C4069730031A188 /* Testing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Testing.cpp; sourceTree = "<group>"; };
 		AF82678B1C4069730031A188 /* Testing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Testing.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,8 +88,8 @@
 			children = (
 				AF82677A1C3F65260031A188 /* cnpy.cpp */,
 				AF82677B1C3F65270031A188 /* cnpy.h */,
-				AF8267871C40634B0031A188 /* Faddeeva.cpp */,
-				AF8267881C40634B0031A188 /* Faddeeva.hpp */,
+				71B192AE1C46E83F003BD111 /* Faddeeva.cpp */,
+				71B192AF1C46E83F003BD111 /* Faddeeva.hpp */,
 			);
 			name = "New Group";
 			sourceTree = "<group>";
@@ -151,7 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF82676F1C3DCE3C0031A188 /* Sparse_Representation.cpp in Sources */,
-				AF8267891C40634B0031A188 /* Faddeeva.cpp in Sources */,
+				71B192B01C46E83F003BD111 /* Faddeeva.cpp in Sources */,
 				AF82677C1C3F65270031A188 /* cnpy.cpp in Sources */,
 				AF82678C1C4069730031A188 /* Testing.cpp in Sources */,
 				AF8267861C405F730031A188 /* Voigt.cpp in Sources */,
