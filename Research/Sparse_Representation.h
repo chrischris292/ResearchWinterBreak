@@ -16,7 +16,7 @@ public:
     void load_file();
     int area() {return 0;}//return width*height;}
     void prepareDictionary(double dz,int numGalaxy,int pdfSize,vector<vector<double> >& pdfs,vector<double>& z);
-    void create_voigt_dict(vector<double> &zfine, tuple<double,double> mu, int Nmu, tuple<double,double> sigma, int Nsigma, int Nv,double cut = 1.e-5);
+    arma::Mat<double> create_voigt_dict(vector<double> &zfine, tuple<double,double> mu, int Nmu, tuple<double,double> sigma, int Nsigma, int Nv,double cut = 1.e-5);
 private:
     string fname = "Data/CFHTLens_sample.P.npy";
     vector<vector<double> >pdfs;

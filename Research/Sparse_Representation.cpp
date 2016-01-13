@@ -11,7 +11,6 @@
 #include"Sparse_Representation.h"
 #include<complex>
 #include "Testing.hpp"
-#include "Dependencies/Eigen/Dense"
 #include "/opt/local/include/armadillo" //use macports to install
 #include <iomanip>
 
@@ -55,9 +54,10 @@ void Sparse_Representation::prepareDictionary(double dz,int numGalaxy,int pdfSiz
     int Na = Nmu*Nsig*Nv;
     cout << "Nmu, Nsig, Nv = "<< "["<< Nmu<< ","<< Nsig<< ","<<Nv<< "]"<<endl;
     cout << "Total bases in dictionary: "<< Na<<endl;
-    create_voigt_dict(z, mu, Nmu, sig, Nsig, Nv);
+    arma::Mat<double> D = create_voigt_dict(z, mu, Nmu, sig, Nsig, Nv);
+    
 }
-void Sparse_Representation::create_voigt_dict(vector<double>& zfine, tuple<double,double> mu, int Nmu, tuple<double,double> sigma, int Nsigma, int Nv,double cut){
+arma::Mat<double> Sparse_Representation::create_voigt_dict(vector<double>& zfine, tuple<double,double> mu, int Nmu, tuple<double,double> sigma, int Nsigma, int Nv,double cut){
     arma::vec zmid = linspace(get<0>(mu),get<1>(mu),Nmu);
     arma::vec sig = linspace(get<0>(sigma), get<1>(sigma), Nsigma);
     arma::vec gamma = linspace(0,.5,Nv);
@@ -77,16 +77,18 @@ void Sparse_Representation::create_voigt_dict(vector<double>& zfine, tuple<doubl
                     }
                 }
                 double normalized = norm(pdft);
-                cout << normalized<<endl;
-                //arma::vec temp = pdft/normalized;
+                arma::vec temp = pdft/normalized; //UNSURE ABOUT THIS PART OF CODE..CANT TEST CUZ DEBUGGER BAD. this could also be sped up dramatically....trying to ensure correctness first before speeding up code.
+                for(int l = 0;l<temp.size();l++){
+                    A(l,kk) = temp[l];
+                }
+                kk++;
+                
             }
-            break;
         }
-        break;
     }
-    
-    
+    return A;
 }
+
 double Sparse_Representation::norm(arma::vec& input){
     double accum = 0;
     for(int i = 0;i<input.size();i++){
