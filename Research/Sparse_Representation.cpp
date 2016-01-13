@@ -56,6 +56,24 @@ void Sparse_Representation::prepareDictionary(double dz,int numGalaxy,int pdfSiz
     cout << "Total bases in dictionary: "<< Na<<endl;
     arma::Mat<double> D = create_voigt_dict(z, mu, Nmu, sig, Nsig, Nv);
     
+    //Define some tolerance and or Max number of Basis to be used, when tolerance is reached rest of basis is 0.
+    double toler = 1.e-10;
+    int Nsparse = 20;
+    int Ncoef = 32001;
+    arma::vec AA = linspace(0,1,Ncoef);
+    double Da = AA[1]-AA[0];
+    
+    //Python code does this in parallel. first doing this single threaded to ensure correctness'
+    for(int ik = 0;ik<numGalaxy;ik++){
+        arma::rowvec  pdf0 = D.row(ik);
+        //cout << pdf0<<endl;
+        break;
+        
+    }
+    
+}
+void Sparse_Representation::sparse_basis(arma::Mat<double>& dictionary,arma::vec query_vec,int n_basis, int tolerance){
+    
 }
 arma::Mat<double> Sparse_Representation::create_voigt_dict(vector<double>& zfine, tuple<double,double> mu, int Nmu, tuple<double,double> sigma, int Nsigma, int Nv,double cut){
     arma::vec zmid = linspace(get<0>(mu),get<1>(mu),Nmu);
