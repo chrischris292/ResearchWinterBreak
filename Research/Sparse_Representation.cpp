@@ -37,10 +37,29 @@ void Sparse_Representation::load_file () {
     }
     double dz = z[1]-z[0];
     arr.destruct();
-    prepareDictionary(dz, numGalaxy, pdfsize,pdfs,z);
+    arma::Mat<double> D = prepareDictionary(dz, numGalaxy, pdfsize,pdfs,z);
+    
+    //Define some tolerance and or Max number of Basis to be used, when tolerance is reached rest of basis is 0.
+    double toler = 1.e-10;
+    int Nsparse = 20;
+    int Ncoef = 32001;
+    arma::vec AA = linspace(0,1,Ncoef);
+    double Da = AA[1]-AA[0];
+    
+    //Python code does this in parallel. first doing this single threaded to ensure correctness'
+    for(int ik = 0;ik<numGalaxy;ik++){
+        arma::vec  pdf0 = arma::vec(pdfs[ik]);
+        int np = Nsparse;
+        sparse_basis(D,pdf0,np);
+        //cout << pdf0<<endl;
+        break;
+        
+    }
+    
+
     
 }
-void Sparse_Representation::prepareDictionary(double dz,int numGalaxy,int pdfSize,vector<vector<double> >& pdfs,vector<double>& z){
+arma::Mat<double> Sparse_Representation::prepareDictionary(double dz,int numGalaxy,int pdfSize,vector<vector<double> >& pdfs,vector<double>& z){
     //cout << dz;
     auto minelemz = std::min_element(std::begin(z),std::end(z));
     auto maxelemz = std::max_element(std::begin(z),std::end(z));
@@ -55,25 +74,16 @@ void Sparse_Representation::prepareDictionary(double dz,int numGalaxy,int pdfSiz
     cout << "Nmu, Nsig, Nv = "<< "["<< Nmu<< ","<< Nsig<< ","<<Nv<< "]"<<endl;
     cout << "Total bases in dictionary: "<< Na<<endl;
     arma::Mat<double> D = create_voigt_dict(z, mu, Nmu, sig, Nsig, Nv);
-    
-    //Define some tolerance and or Max number of Basis to be used, when tolerance is reached rest of basis is 0.
-    double toler = 1.e-10;
-    int Nsparse = 20;
-    int Ncoef = 32001;
-    arma::vec AA = linspace(0,1,Ncoef);
-    double Da = AA[1]-AA[0];
-    
-    //Python code does this in parallel. first doing this single threaded to ensure correctness'
-    for(int ik = 0;ik<numGalaxy;ik++){
-        arma::rowvec  pdf0 = D.row(ik);
-        //cout << pdf0<<endl;
-        break;
-        
-    }
+    return D;
     
 }
 void Sparse_Representation::sparse_basis(arma::Mat<double>& dictionary,arma::vec query_vec,int n_basis, int tolerance){
-    
+    arma::vec a_n = arma::zeros(dictionary.n_cols);
+    //arma::vec alpha = dictionary.t()* query_vec;
+    cout << "transpose"<< dictionary.col(1) <<endl;
+    arma::vec res = query_vec;
+    arma::vec idxs = linspace(0,dictionary.n_cols,dictionary.n_cols);
+    //cout << "idxs: "<< idxs<<endl;
 }
 arma::Mat<double> Sparse_Representation::create_voigt_dict(vector<double>& zfine, tuple<double,double> mu, int Nmu, tuple<double,double> sigma, int Nsigma, int Nv,double cut){
     arma::vec zmid = linspace(get<0>(mu),get<1>(mu),Nmu);
@@ -100,10 +110,10 @@ arma::Mat<double> Sparse_Representation::create_voigt_dict(vector<double>& zfine
                     A(l,kk) = temp[l];
                 }
                 kk++;
-                
             }
         }
     }
+    
     return A;
 }
 
