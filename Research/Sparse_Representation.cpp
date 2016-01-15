@@ -13,6 +13,7 @@
 #include "Testing.hpp"
 #include "/opt/local/include/armadillo" //use macports to install
 #include <iomanip>
+#include "Dependencies/Eigen/Eigen"
 
 void Sparse_Representation::load_file () {
     cnpy::NpyArray arr = cnpy::npy_load(fname);
@@ -53,7 +54,6 @@ void Sparse_Representation::load_file () {
         sparse_basis(D,pdf0,np);
         //cout << pdf0<<endl;
         break;
-        
     }
     
 
@@ -79,8 +79,9 @@ arma::Mat<double> Sparse_Representation::prepareDictionary(double dz,int numGala
 }
 void Sparse_Representation::sparse_basis(arma::Mat<double>& dictionary,arma::vec query_vec,int n_basis, int tolerance){
     arma::vec a_n = arma::zeros(dictionary.n_cols);
-    //arma::vec alpha = dictionary.t()* query_vec;
-    cout << "transpose"<< dictionary.col(1) <<endl;
+    arma::mat temp = dictionary.t();
+    auto alpha = temp*query_vec.t();
+    arma::mat alphaRes = alpha.eval();
     arma::vec res = query_vec;
     arma::vec idxs = linspace(0,dictionary.n_cols,dictionary.n_cols);
     //cout << "idxs: "<< idxs<<endl;
