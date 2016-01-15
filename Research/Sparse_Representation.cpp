@@ -42,7 +42,7 @@ void Sparse_Representation::load_file () {
     
     //Python code does this in parallel. first doing this single threaded to ensure correctness'
     for(int ik = 0;ik<numGalaxy;ik++){
-        Eigen::VectorXd  pdf0 = Eigen::VectorXd(pdfs[ik].data());
+        Eigen::VectorXd  pdf0(pdfs[ik].data(),pdfs[ik].size());
         int np = Nsparse;
         sparse_basis(D,pdf0,np);
         //cout << pdf0<<endl;
