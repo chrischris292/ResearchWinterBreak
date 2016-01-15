@@ -21,14 +21,14 @@
 #include <stdio.h>
 #include<math.h>
 #include<complex>
-#include "/opt/local/include/armadillo" //use macports to install
+#include "Dependencies/Eigen/Eigen"
 
 using namespace std;
 
 class Voigt{
 public:
     vector<vector<double> > create_voigt_dict(double zfine,double mu, int Nmu, double sigma, int Nsigma, int Nv, double cut);
-    static arma::vec voigtprofile(vector<double> x, double x_mean,double sigma, double gamma);
+    static Eigen::VectorXd voigtprofile(vector<double> x, double x_mean,double sigma, double gamma);
     
 };
 #endif /* Voigt_hpp */

@@ -10,6 +10,7 @@
 using namespace::std;
 
 class Testing{
+    /*
     vector<double> x = {1.00000000e-03,   1.19950000e-02,   2.29900000e-02,
         3.39850000e-02,   4.49800000e-02,   5.59750000e-02,
         6.69700000e-02,   7.79650000e-02,   8.89600000e-02,
@@ -160,5 +161,5 @@ bool Testing::testVoigt(){
             flag = false;
     }
     return flag;
-    
-}
+    */
+};
