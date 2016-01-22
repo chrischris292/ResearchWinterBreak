@@ -10,7 +10,7 @@
 #include "Dependencies/Faddeeva.hpp"
 using namespace std;
 
-/*
+
 Eigen::VectorXd Voigt::voigtprofile(vector<double> x, double x_mean,double sigma, double gamma){
     //x=x-x_mean
     for(int i = 0;i<x.size();i++){
@@ -26,4 +26,3 @@ Eigen::VectorXd Voigt::voigtprofile(vector<double> x, double x_mean,double sigma
     }
     return returnVal;
 }
-*/

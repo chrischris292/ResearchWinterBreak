@@ -15,9 +15,9 @@ void Sparse_Representation::load_file () {
     double* loaded_data = reinterpret_cast<double*>(arr.data);
     int curr = 0;
     for(int i = 0;i<numGalaxy;i++){
-        vector<double> row;
+        Eigen::VectorXd row(pdfsize);
         for(int i =0;i<pdfsize;i++){
-            row.push_back(loaded_data[curr]);
+            row[i] = loaded_data[curr];
             curr++;
         }
         pdfs.push_back(row);
@@ -30,7 +30,7 @@ void Sparse_Representation::load_file () {
     }
     double dz = z[1]-z[0];
     arr.destruct();
-    Eigen::MatrixXd D = prepareDictionary(dz, numGalaxy, pdfsize,pdfs,z);
+    Eigen::MatrixXd D = prepareDictionary(dz, numGalaxy, pdfsize,z);
     
     //Define some tolerance and or Max number of Basis to be used, when tolerance is reached rest of basis is 0.
     double toler = 1.e-10;
@@ -42,10 +42,9 @@ void Sparse_Representation::load_file () {
     
     //Python code does this in parallel. first doing this single threaded to ensure correctness'
     for(int ik = 0;ik<numGalaxy;ik++){
-        Eigen::VectorXd  pdf0(pdfs[ik].data(),pdfs[ik].size());
+        Eigen::VectorXd  pdf0 = pdfs[ik];
         int np = Nsparse;
         sparse_basis(D,pdf0,np);
-        //cout << pdf0<<endl;
         break;
     }
     
@@ -53,7 +52,22 @@ void Sparse_Representation::load_file () {
     
 }
 /*
-Eigen::MatrixXd Sparse_Representation::prepareDictionary(double dz,int numGalaxy,int pdfSize,vector<vector<double> >& pdfs,vector<double>& z){
+ ## preparing dictionary
+ mu = [min(z), max(z)]
+ Nmu = 250 #len(z)
+ max_sig = (max(z) - min(z)) / 12.
+ min_sig = dz / 6.
+ sig = [min_sig, max_sig]
+ Nv = 3
+ Nsig = 80
+ NA = Nmu * Nsig * Nv #final number of basis
+ if rank == 0:
+ print 'Nmu, Nsig, Nv = ', '[', Nmu, ',', Nsig, ',', Nv, ']'
+ print 'Total bases in dictionary', NA
+ D = create_voigt_dict(z, mu, Nmu, sig, Nsig, Nv)
+ bigD = {}
+ */
+Eigen::MatrixXd Sparse_Representation::prepareDictionary(double dz,int numGalaxy,int pdfSize,vector<double>& z){
     //cout << dz;
     auto minelemz = std::min_element(std::begin(z),std::end(z));
     auto maxelemz = std::max_element(std::begin(z),std::end(z));
@@ -71,15 +85,32 @@ Eigen::MatrixXd Sparse_Representation::prepareDictionary(double dz,int numGalaxy
     return D;
     
 }
-
+/*
+    Incomplete due to difficulty with array splicing...
+ 
+ 
+ */
 void Sparse_Representation::sparse_basis(Eigen::MatrixXd& dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance){
     Eigen::VectorXd a_n(dictionary.rows());   //arma::zeros(dictionary.n_cols);
     Eigen::MatrixXd temp = dictionary.transpose();
-    auto alpha = temp*query_vec.transpose();
-    Eigen::MatrixXd alphaRes = alpha.eval();
+    auto alpha = temp*query_vec;
     Eigen::VectorXd res = query_vec;
+    Eigen::MatrixXd alphaRes = alpha.eval();
     Eigen::VectorXd idxs;
     idxs.setLinSpaced(dictionary.cols(),0,dictionary.cols());
+    Eigen::MatrixXd L(n_basis,n_basis);
+    L(0,0) = 1;
+    for(int n_active = 0;n_active<n_basis;n_active++){
+        //abs(dot(dictionary.T, res))
+        Eigen::VectorXd absVectorParam = dictionary.transpose()*res;
+        absVectorParam.array().abs();
+        int lam = argMax(absVectorParam);
+        if(n_active>0){
+            //L[n_active, :n_active] = dot(dictionary[:, :n_active].T, dictionary[:, lam])
+            L.block(n_active,0,0,n_active) = dictionary.leftCols(n_active).transpose()*(dictionary.col(lam));
+            cout << L;            
+        }
+    }
     //cout << "idxs: "<< idxs<<endl;
 }
 Eigen::MatrixXd Sparse_Representation::create_voigt_dict(vector<double>& zfine, tuple<double,double> mu, int Nmu, tuple<double,double> sigma, int Nsigma, int Nv,double cut){
@@ -105,7 +136,7 @@ Eigen::MatrixXd Sparse_Representation::create_voigt_dict(vector<double>& zfine, 
                     }
                 }
                 double normalized = norm(pdft);
-                Eigen::VectorXd temp = pdft/normalized; //UNSURE ABOUT THIS PART OF CODE..CANT TEST CUZ DEBUGGER BAD. this could also be sped up dramatically....trying to ensure correctness first before speeding up code.
+                Eigen::VectorXd temp = pdft/normalized; //. this could also be sped up dramatically....trying to ensure correctness first before speeding up code.
                 for(int l = 0;l<temp.size();l++){
                     A(l,kk) = temp[l];
                 }
@@ -115,6 +146,16 @@ Eigen::MatrixXd Sparse_Representation::create_voigt_dict(vector<double>& zfine, 
     }
     
     return A;
+}
+//Implement python argMax...assuming largest value is a single index...
+int Sparse_Representation::argMax(Eigen::VectorXd& input){
+    int maxIndice = 0;
+    for(int i = 0;i<input.size();i++){
+        if(input[maxIndice]<input[i]){
+            maxIndice = i;
+        }
+    }
+    return maxIndice;
 }
 
 double Sparse_Representation::norm(Eigen::VectorXd& input){
@@ -137,11 +178,9 @@ Eigen::VectorXd Sparse_Representation::linspace( double a,  double b, int n) {
     }
     return array;
 }
-*/
 int main () {
-    //Sparse_Representation init;
-    ////init.load_file();
-    //Voigt temp;
+    Sparse_Representation init;
+    init.load_file();
     return 0;
 }
 

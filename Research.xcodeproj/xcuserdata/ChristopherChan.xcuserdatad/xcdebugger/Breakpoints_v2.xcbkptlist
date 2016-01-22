@@ -154,12 +154,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Research/Sparse_Representation.cpp"
-            timestampString = "474580132.028834"
+            timestampString = "474953861.754548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "Sparse_Representation::sparse_basis(arma::Mat&lt;double&gt;&amp; dictionary,arma::vec query_vec,int n_basis, int tolerance)"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Research/Sparse_Representation.cpp"
+            timestampString = "474953877.254129"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Research/Sparse_Representation.cpp"
+            timestampString = "474953879.06019"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
