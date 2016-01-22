@@ -154,11 +154,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Research/Sparse_Representation.cpp"
-            timestampString = "474953861.754548"
+            timestampString = "475170876.755092"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sparse_Representation::sparse_basis(Eigen::Matrix&lt;double, -1, -1, 0, -1, -1&gt;&amp;, Eigen::Matrix&lt;double, -1, 1, 0, -1, 1&gt;, int, int)"
+                  moduleName = "Research"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ChristopherChan/Documents/Coding/Projects/ResearchWinterBreak/Research/Sparse_Representation.cpp"
+                  timestampString = "475170695.61383"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "1044">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sparse_Representation::sparse_basis(Eigen::Matrix&lt;double, -1, -1, 0, -1, -1&gt;&amp;, Eigen::Matrix&lt;double, -1, 1, 0, -1, 1&gt;, int, int)"
+                  moduleName = "Research"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ChristopherChan/Documents/Coding/Projects/ResearchWinterBreak/Research/Sparse_Representation.cpp"
+                  timestampString = "475170695.614375"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "1175">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Research/Sparse_Representation.cpp"
+            timestampString = "475169192.143095"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Research/Sparse_Representation.cpp"
-            timestampString = "474953877.254129"
+            timestampString = "475169192.143095"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,13 +234,93 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Research/Sparse_Representation.cpp"
-            timestampString = "474953879.06019"
+            timestampString = "475170876.755092"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Research/Sparse_Representation.cpp"
+            timestampString = "475170358.485584"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Research/Sparse_Representation.cpp"
+            timestampString = "475170876.755092"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Research/Sparse_Representation.cpp"
+            timestampString = "475170876.755092"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "Sparse_Representation::sparse_basis(Eigen::MatrixXd&amp; dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sparse_Representation::sparse_basis(Eigen::Matrix&lt;double, -1, -1, 0, -1, -1&gt;&amp;, Eigen::Matrix&lt;double, -1, 1, 0, -1, 1&gt;, int, int)"
+                  moduleName = "Research"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ChristopherChan/Documents/Coding/Projects/ResearchWinterBreak/Research/Sparse_Representation.cpp"
+                  timestampString = "475170694.46446"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "1044">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sparse_Representation::sparse_basis(Eigen::Matrix&lt;double, -1, -1, 0, -1, -1&gt;&amp;, Eigen::Matrix&lt;double, -1, 1, 0, -1, 1&gt;, int, int)"
+                  moduleName = "Research"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ChristopherChan/Documents/Coding/Projects/ResearchWinterBreak/Research/Sparse_Representation.cpp"
+                  timestampString = "475170694.464743"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "1175">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

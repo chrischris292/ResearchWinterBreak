@@ -32,8 +32,7 @@ private:
     Eigen::VectorXd linspace( double a,  double b, int n);
     double norm(Eigen::VectorXd & input);
     int argMax(Eigen::VectorXd& input);
-
-
+    void swapVectorVar(Eigen::VectorXd &input, int one, int two);
 };
 Sparse_Representation::Sparse_Representation(){
     //load_file();

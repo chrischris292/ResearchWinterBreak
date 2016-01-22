@@ -86,14 +86,14 @@ Eigen::MatrixXd Sparse_Representation::prepareDictionary(double dz,int numGalaxy
     
 }
 /*
-    Incomplete due to difficulty with array splicing...
+    Incomplete due to difficulty with array splicing/Cholesky solve.
  
  
  */
 void Sparse_Representation::sparse_basis(Eigen::MatrixXd& dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance){
     Eigen::VectorXd a_n(dictionary.rows());   //arma::zeros(dictionary.n_cols);
     Eigen::MatrixXd temp = dictionary.transpose();
-    auto alpha = temp*query_vec;
+    Eigen::VectorXd alpha = temp*query_vec;
     Eigen::VectorXd res = query_vec;
     Eigen::MatrixXd alphaRes = alpha.eval();
     Eigen::VectorXd idxs;
@@ -104,14 +104,29 @@ void Sparse_Representation::sparse_basis(Eigen::MatrixXd& dictionary,Eigen::Vect
         //abs(dot(dictionary.T, res))
         Eigen::VectorXd absVectorParam = dictionary.transpose()*res;
         absVectorParam.array().abs();
-        int lam = argMax(absVectorParam);
+        int lam = argMax(absVectorParam); //can we improve this?
         if(n_active>0){
             //L[n_active, :n_active] = dot(dictionary[:, :n_active].T, dictionary[:, lam])
             L.block(n_active,0,0,n_active) = dictionary.leftCols(n_active).transpose()*(dictionary.col(lam));
             cout << L;            
         }
+        //dictionary[:, [n_active, lam]] = dictionary[:, [lam, n_active]]
+        dictionary.col(lam).swap(dictionary.col(n_active));
+        //alpha[[n_active, lam]] = alpha[[lam, n_active]]
+        swapVectorVar(alpha,lam,n_active);
+        cout << alpha;
+        //idxs[[n_active, lam]] = idxs[[lam, n_active]]
+        swapVectorVar(idxs,lam,n_active);
+        //gamma = sla.cho_solve((L[:n_active + 1, :n_active + 1], True), alpha[:n_active + 1], overwrite_b=False)
+        //res = query_vec - dot(dictionary[:, :n_active + 1], gamma)
+        
     }
     //cout << "idxs: "<< idxs<<endl;
+}
+void Sparse_Representation::swapVectorVar(Eigen::VectorXd &input, int one, int two){
+    double temp = input[one];
+    input[one] = input[two];
+    input[two] = temp;
 }
 Eigen::MatrixXd Sparse_Representation::create_voigt_dict(vector<double>& zfine, tuple<double,double> mu, int Nmu, tuple<double,double> sigma, int Nsigma, int Nv,double cut){
     Eigen::VectorXd zmid;
