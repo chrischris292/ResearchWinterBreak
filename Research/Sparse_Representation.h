@@ -15,6 +15,8 @@
 #include "Testing.hpp"
 #include <iomanip>
 #include "Dependencies/Eigen/Eigen"
+#include "Dependencies/Eigen/Cholesky"
+#include "Dependencies/Eigen/SparseCore"
 
 using namespace std;
 
