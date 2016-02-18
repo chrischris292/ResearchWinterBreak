@@ -17,6 +17,8 @@
 #include "Dependencies/Eigen/Eigen"
 #include "Dependencies/Eigen/Cholesky"
 #include "Dependencies/Eigen/SparseCore"
+#include "BigD.hpp"
+#include <cmath>
 
 using namespace std;
 
@@ -27,7 +29,7 @@ public:
     int area() {return 0;}//return width*height;}
     Eigen::MatrixXd prepareDictionary(double dz,int numGalaxy,int pdfSize,vector<double>& z);
     Eigen::MatrixXd create_voigt_dict(vector<double> &zfine, tuple<double,double> mu, int Nmu, tuple<double,double> sigma, int Nsigma, int Nv,double cut = 1.e-5);
-    void sparse_basis(Eigen::MatrixXd& dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance = 0);
+    tuple<Eigen::VectorXd,Eigen::VectorXd> sparse_basis(Eigen::MatrixXd& dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance = 0);
     double normUnsquared(Eigen::VectorXd& input);
 
 private:
@@ -37,7 +39,8 @@ private:
     double norm(Eigen::VectorXd & input);
     int argMax(const Eigen::VectorXd & input);
     void swapVectorVar(Eigen::VectorXd &input, int one, int two);
-
+    Eigen::VectorXd roundEigenVec(Eigen::VectorXd &input);
+    Eigen::VectorXd combine_int(Eigen::VectorXd index, Eigen::VectorXd dind);
 };
 Sparse_Representation::Sparse_Representation(){
     //load_file();

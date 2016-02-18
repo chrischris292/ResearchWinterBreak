@@ -39,13 +39,46 @@ void Sparse_Representation::load_file () {
     Eigen::VectorXd AA;
     AA.setLinSpaced(Ncoef,0,1);
     double Da = AA[1]-AA[0];
-    
+    int s0= 0;
+    BigD bigD;
+    Eigen::VectorXd Dvalm;
+    Eigen::VectorXd index;
     //Python code does this in parallel. first doing this single threaded to ensure correctness'
     for(int ik = 0;ik<numGalaxy;ik++){
+        int k = s0 + ik;
         Eigen::VectorXd  pdf0 = pdfs[ik];
         int np = Nsparse;
-        sparse_basis(D,pdf0,np);
-        break;
+        tuple<Eigen::VectorXd,Eigen::VectorXd> Dtuple =  sparse_basis(D,pdf0,np);
+        Eigen::VectorXd Dind = get<0>(Dtuple);
+        Eigen::VectorXd Dval = get<1>(Dtuple);
+        cout << Dval;
+        cout << Dind;
+        bigDTuple temp;
+        bigD.array.push_back(temp);
+        bigD.array[ik].sparse =Dtuple;
+        if(Dval.maxCoeff()>0){
+            double dval0 = Dval[0];
+            cout << Dval;
+            cout << Dval.maxCoeff();
+            Dvalm = Dval/Dval.maxCoeff();
+            Dvalm = Dvalm/Da;
+            index = roundEigenVec(Dvalm);
+            int index0 = (int)round(dval0/Da);
+            index[0] = index0;
+        }
+        else{
+            index = Eigen::VectorXd::Zero(Dind.size());
+        }
+        bigD.array[k].sparse_ind = combine_int(index,Dind);
+        cout<<"Dind: "<<Dind;
+        cout<<"Dval: "<<Dval;
+        //    #swap back columns
+        //D[:, [Dind]] = D[:, [arange(len(Dind))]]
+        for(int i = 0;i<Dind.size();i++){
+            D.col(Dind[i]) = D.leftCols(Dind.size());
+        }
+        
+
     }
     
 
@@ -85,12 +118,19 @@ Eigen::MatrixXd Sparse_Representation::prepareDictionary(double dz,int numGalaxy
     return D;
     
 }
+Eigen::VectorXd Sparse_Representation::roundEigenVec(Eigen::VectorXd & input){
+    Eigen::VectorXd returnVal(input.size());
+    for(int i = 0; i<input.size();i++){
+        returnVal[i]= round(input[i]);
+    }
+    return returnVal;
+}
 /*
     Incomplete due to difficulty with array splicing/Cholesky solve.
  
  
  */
-void Sparse_Representation::sparse_basis(Eigen::MatrixXd& dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance){
+tuple<Eigen::VectorXd,Eigen::VectorXd> Sparse_Representation::sparse_basis(Eigen::MatrixXd& dictionary,Eigen::VectorXd query_vec,int n_basis, int tolerance){
     Eigen::VectorXd a_n(dictionary.rows());   //arma::zeros(dictionary.n_cols);
     Eigen::MatrixXd temp = dictionary.transpose();
     Eigen::VectorXd alpha = temp*query_vec;
@@ -103,47 +143,82 @@ void Sparse_Representation::sparse_basis(Eigen::MatrixXd& dictionary,Eigen::Vect
     Eigen::MatrixXd L = Eigen::MatrixXd::Zero(n_basis,n_basis);
     L(0,0) = 1;
     for( n_active = 0;n_active<n_basis;n_active++){
+        //abs(dot(dictionary.T, res))
+        //cout << "n_active" << n_active<<endl;
         Eigen::VectorXd absVectorParam = dictionary.transpose()*res;
         int lam = argMax(absVectorParam); //can we improve this?
         cout << "Lam: "<<lam<<endl;
+        //cout<< "5796: "<<absVectorParam[5796]<<endl;
+        //cout<< "6036: "<<absVectorParam[6036]<<endl;
 
         if(n_active>0){
             //L[n_active, :n_active] = dot(dictionary[:, :n_active].T, dictionary[:, lam])
-            cout << "A: "<<dictionary.leftCols(n_active)<<endl;
-            cout << "B: "<<dictionary.col(lam)<< endl;
             Eigen::VectorXd result = dictionary.leftCols(n_active).transpose()*dictionary.col(lam);
-            cout <<"result: "<<result<<endl;
             L.row(n_active).leftCols(n_active) = result;
-
+            //sla.solve_triangular(L[:n_active, :n_active], L[n_active, :n_active], lower=True, overwrite_b=True)
+            //L.row(n_active).leftCols(n_active) = L.topLeftCorner(n_active,n_active).triangularView<Eigen::Lower>().solve(L.row(n_active).leftCols(n_active));
+            //
             Eigen::VectorXd b= L.row(n_active).leftCols(n_active);
-            cout << "TriangularA:"<<endl;
+           /* cout << "TriangularA:"<<endl;
             cout<< L.topLeftCorner(n_active,n_active)<<endl;
             cout<<"TriangularB"<<endl;
             cout << b<<endl;
-            cout<<"result:"<<endl;
+            cout<<"result:"<<endl;*/
             //L.row(n_active).leftCols(n_active) =L.topLeftCorner(n_active,n_active).triangularView<Eigen::Lower>().solve(L.row(n_active).leftCols(n_active).transpose()).transpose();
             L.row(n_active).leftCols(n_active) =L.topLeftCorner(n_active,n_active).triangularView<Eigen::Lower>().solve(b);
+            //cout<<"result:"<<endl;
             //L.row(n_active).leftCols(n_active).norm()
             Eigen::VectorXd nextRow = L.row(n_active).leftCols(n_active);
 
             double v = normUnsquared(nextRow);
             //double v = pow(L.row(n_active).leftCols(n_active).norm(),2);
-            L(n_active,n_active) = sqrt(1-v);
+            if(v<1){
+                L(n_active,n_active) = sqrt(1-v);
+            }
+            else{
+                //matrix already solved
+                break;
+            }
+            
+            //cout << L <<endl;
+            //cout<< L.row(n_active).leftCols(n_active).cols()<<endl;
+            //cout << L.row(n_active).leftCols(n_active).rows()<<endl;
+            //cout <<L.row(n_active).leftCols(n_active).cols();
             //x = A.triangularView<Lower>().solve(b);
         }
         //dictionary[:, [n_active, lam]] = dictionary[:, [lam, n_active]]
+        //cout<<"lamCol:"<<dictionary.col(lam);
+        //cout<<"n_active_col:"<<dictionary.col(n_active);
+
         dictionary.col(lam).swap(dictionary.col(n_active));
+        //cout<<"lamCol:"<<dictionary.col(lam);
+        //cout<<"n_active_col:"<<dictionary.col(n_active);
         //alpha[[n_active, lam]] = alpha[[lam, n_active]]
         swapVectorVar(alpha,lam,n_active);
         //idxs[[n_active, lam]] = idxs[[lam, n_active]]
         swapVectorVar(idxs,lam,n_active);
         //gamma = sla.cho_solve((L[:n_active + 1, :n_active + 1], True), alpha[:n_active + 1], overwrite_b=False)x = A.llt() .solve(b));  // A sym. p.d.      #include <Eigen/Cholesky>
+        cout << "A: " <<L.topLeftCorner(n_active+1, n_active+1)<<endl;
+        cout << "B: " <<alpha.head(n_active+1)<<endl;
          gamma = L.topLeftCorner(n_active+1, n_active+1).llt().solve(alpha.head(n_active+1));
+        cout << "Gamma: "<< gamma<<endl;
         //res = query_vec - dot(dictionary[:, :n_active + 1], gamma)
         res = query_vec - (dictionary.leftCols(n_active+1)*gamma);
     }
+    tuple<Eigen::VectorXd,Eigen::VectorXd> result(idxs.head(n_active+1),gamma);
+    return result;
 
 }
+Eigen::VectorXd Sparse_Representation::combine_int(Eigen::VectorXd index, Eigen::VectorXd dind){
+    Eigen::VectorXd result(index.size());
+    for(int i = 0;i<index.size();i++){
+        int ncoef = index[i];
+        int nbase = dind[i];
+        result[i] =ncoef<<16|nbase;
+    }
+    return result;
+}
+
 void Sparse_Representation::swapVectorVar(Eigen::VectorXd &input, int one, int two){
     double temp = input[one];
     input[one] = input[two];
@@ -228,7 +303,6 @@ int main () {
     c<< 0.556384  ,   0.358266   , -0.101661  ,   0.627309 ,  -0.175332 ,    0.357057 ,-3.35015e-17;
     Sparse_Representation init;
     //cout<<setprecision(50)<< sqrt(abs(1-init.normUnsquared(c)));
-
     init.load_file();
     return 0;
 }

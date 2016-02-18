@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		71B192B01C46E83F003BD111 /* Faddeeva.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71B192AE1C46E83F003BD111 /* Faddeeva.cpp */; };
+		AF2A144B1C765299008F45D9 /* bigDTuple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2A14491C765299008F45D9 /* bigDTuple.cpp */; };
 		AF82676F1C3DCE3C0031A188 /* Sparse_Representation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF82676E1C3DCE3C0031A188 /* Sparse_Representation.cpp */; };
 		AF82677C1C3F65270031A188 /* cnpy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF82677A1C3F65260031A188 /* cnpy.cpp */; };
 		AF8267861C405F730031A188 /* Voigt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF8267841C405F730031A188 /* Voigt.cpp */; };
@@ -31,6 +32,9 @@
 		71B192AD1C46DC18003BD111 /* Sparse_Representation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sparse_Representation.h; sourceTree = "<group>"; };
 		71B192AE1C46E83F003BD111 /* Faddeeva.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Faddeeva.cpp; path = Dependencies/Faddeeva.cpp; sourceTree = "<group>"; };
 		71B192AF1C46E83F003BD111 /* Faddeeva.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Faddeeva.hpp; path = Dependencies/Faddeeva.hpp; sourceTree = "<group>"; };
+		AF2A14491C765299008F45D9 /* bigDTuple.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bigDTuple.cpp; sourceTree = "<group>"; };
+		AF2A144A1C765299008F45D9 /* bigDTuple.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bigDTuple.hpp; sourceTree = "<group>"; };
+		AF2A144C1C7652BF008F45D9 /* BigD.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BigD.hpp; sourceTree = "<group>"; };
 		AF82676B1C3DCE3C0031A188 /* Research */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Research; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF82676E1C3DCE3C0031A188 /* Sparse_Representation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sparse_Representation.cpp; sourceTree = "<group>"; };
 		AF82677A1C3F65260031A188 /* cnpy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cnpy.cpp; path = Dependencies/cnpy.cpp; sourceTree = "<group>"; };
@@ -395,6 +399,9 @@
 		AF82676D1C3DCE3C0031A188 /* Research */ = {
 			isa = PBXGroup;
 			children = (
+				AF2A14491C765299008F45D9 /* bigDTuple.cpp */,
+				AF2A144A1C765299008F45D9 /* bigDTuple.hpp */,
+				AF2A144C1C7652BF008F45D9 /* BigD.hpp */,
 				AF82676E1C3DCE3C0031A188 /* Sparse_Representation.cpp */,
 				71B192AD1C46DC18003BD111 /* Sparse_Representation.h */,
 				718789581C46B40C00A614DE /* CFHTLens_sample.P.npy */,
@@ -1103,6 +1110,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF2A144B1C765299008F45D9 /* bigDTuple.cpp in Sources */,
 				AF82676F1C3DCE3C0031A188 /* Sparse_Representation.cpp in Sources */,
 				71B192B01C46E83F003BD111 /* Faddeeva.cpp in Sources */,
 				AF82677C1C3F65270031A188 /* cnpy.cpp in Sources */,
